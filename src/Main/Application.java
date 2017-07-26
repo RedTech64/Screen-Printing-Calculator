@@ -38,6 +38,7 @@ public class Application extends JFrame {
 	int quantity = 0;
 	double markup = 0;
 	double flash = 0;
+	double art = 0;
 	
 	private NumberFormat currencyFormat = NumberFormat.getCurrencyInstance();
 	private NumberFormat numberFormat = NumberFormat.getNumberInstance();
@@ -261,7 +262,7 @@ public class Application extends JFrame {
 		textShirtCost = new JFormattedTextField(new DefaultFormatterFactory(new NumberFormatter(currencyFormat), new NumberFormatter(currencyFormat), new NumberFormatter(numberFormat)));
 		textMarkup = new JFormattedTextField(new DefaultFormatterFactory(new NumberFormatter(percentFormat), new NumberFormatter(percentFormat),percentEditFormatter));
 		textQuantity = new JFormattedTextField(new DefaultFormatterFactory(new NumberFormatter(numberFormat), new NumberFormatter(numberFormat), new NumberFormatter(numberFormat)));
-		textArt = new JFormattedTextField(new DefaultFormatterFactory(new NumberFormatter(currencyFormat), new NumberFormatter(currencyFormat), new NumberFormatter(currencyFormat)));
+		textArt = new JFormattedTextField(new DefaultFormatterFactory(new NumberFormatter(currencyFormat), new NumberFormatter(currencyFormat), new NumberFormatter(numberFormat)));
 		disShirtCost = new JFormattedTextField(new DefaultFormatterFactory(new NumberFormatter(currencyFormat), new NumberFormatter(currencyFormat), new NumberFormatter(currencyFormat)));
 		disTotal = new JFormattedTextField(new DefaultFormatterFactory(new NumberFormatter(currencyFormat), new NumberFormatter(currencyFormat), new NumberFormatter(currencyFormat)));
 		disSetup = new JFormattedTextField(new DefaultFormatterFactory(new NumberFormatter(currencyFormat), new NumberFormatter(currencyFormat), new NumberFormatter(currencyFormat)));
@@ -335,6 +336,13 @@ public class Application extends JFrame {
 		textArt.setHorizontalAlignment(JTextField.CENTER);
 		textArt.setPreferredSize(new Dimension(80,10));
 		textArt.setValue(0);
+		textArt.addPropertyChangeListener(new PropertyChangeListener () {
+			@Override
+			public void propertyChange(PropertyChangeEvent e) {
+				art = ((Number)textArt.getValue()).intValue();
+				calculate();
+			}
+		});
 		textArt.addFocusListener(new java.awt.event.FocusAdapter() {
 		    public void focusGained(java.awt.event.FocusEvent evt) {
 		        SwingUtilities.invokeLater(new Runnable() {
